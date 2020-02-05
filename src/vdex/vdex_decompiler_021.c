@@ -20,7 +20,7 @@
 
 */
 
-#include "vdex_decompiler_019.h"
+#include "vdex_decompiler_021.h"
 
 #include "../utils.h"
 
@@ -100,7 +100,7 @@ static void DecompileInvokeVirtual(u2 *insns, Code new_opcode, bool is_range) {
   }
 }
 
-bool vdex_decompiler_019_decompile(const u1 *dexFileBuf,
+bool vdex_decompiler_021_decompile(const u1 *dexFileBuf,
                                    dexMethod *pDexMethod,
                                    const vdex_data_array_t *quickenData,
                                    bool decompile_return_instruction) {
@@ -227,7 +227,7 @@ bool vdex_decompiler_019_decompile(const u1 *dexFileBuf,
   return true;
 }
 
-void vdex_decompiler_019_walk(const u1 *dexFileBuf, dexMethod *pDexMethod) {
+void vdex_decompiler_021_walk(const u1 *dexFileBuf, dexMethod *pDexMethod) {
   // We have different code items in Standard Dex and Compact Dex
   u2 *pCode = NULL;
   u4 codeSize = 0;

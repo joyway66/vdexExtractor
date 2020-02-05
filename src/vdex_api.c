@@ -20,6 +20,8 @@
 
 */
 
+#include "vdex_api.h"
+
 #include <sys/mman.h>
 
 #include "log.h"
@@ -28,7 +30,7 @@
 #include "vdex/vdex_006.h"
 #include "vdex/vdex_010.h"
 #include "vdex/vdex_019.h"
-#include "vdex_api.h"
+#include "vdex/vdex_021.h"
 
 bool vdexApi_initEnv(const u1 *cursor, vdex_api_env_t *env) {
   // Check if a supported Vdex version is found
@@ -47,6 +49,11 @@ bool vdexApi_initEnv(const u1 *cursor, vdex_api_env_t *env) {
     env->dumpHeaderInfo = vdex_019_dumpHeaderInfo;
     env->dumpDepsInfo = vdex_019_dumpDepsInfo;
     env->process = vdex_019_process;
+  } else if (vdex_021_isValidVdex(cursor)) {
+    LOGMSG(l_DEBUG, "Initializing environment for Vdex version '021'");
+    env->dumpHeaderInfo = vdex_021_dumpHeaderInfo;
+    env->dumpDepsInfo = vdex_021_dumpDepsInfo;
+    env->process = vdex_021_process;
   } else {
     LOGMSG(l_ERROR, "Unsupported Vdex version");
     return false;
@@ -128,6 +135,8 @@ bool vdexApi_printApiLevel(const char *inVdexFileName) {
     log_raw("API-27\n");
   } else if (vdex_019_isValidVdex(buf)) {
     log_raw("API-28\n");
+  } else if (vdex_021_isValidVdex(buf)) {
+    log_raw("API-29\n");
   } else {
     goto fini;
   }
